@@ -1,0 +1,91 @@
+Tích hợp liên tục (Continuous Integration) là
+phương pháp phát triển phần mềm đòi hỏi các thành 
+viên trong nhóm tích hợp công việc thường xuyên. 
+Mỗi ngày, các thành viên đều phải theo dõi và phát triển
+công việc của họ ít nhất một lần trong ngày. 
+
+CI được lần đầu đề xuất bởi Brady Booch vào năm 1991, mặc dù 
+khi đó ông chưa đề xuất việc tích hợp nhiều lần một ngày. 
+Extreme Programming sau đó đã tiếp thu CI và đồng thời 
+đề xuất cần tích hợp nhiều lần một ngày, có thể đến 10 lần 
+mỗi ngày. 
+
+Mục đích chính của CI: 
+Ngăn ngừa vấn đề tích hợp giữa các dev trong phát triển 
+phần mềm. Thường được gọi là "integration hell". 
+Và vấn đề "Nó chạy trên máy tôi mà" - "It Works on My Machine"
+
+CI thường được thực hiện đi kèm với kiểm thử tự động (automated testing). 
+Trong đó các Unit Test thường xây dựng bằng phương pháp 
+"Phát triển hướng kiểm thử" (Test Driven Development). 
+Đó là phương pháp mà ở đó lập trình viên viết 
+test trước khi viết code để pass test đó. 
+
+Hiện tại, hầu hết các công ti phát triển phần mềm đều sử dung CI, 
+dù cho công tí đó có áp dụng triết lý Agile hay không. 
+
+Một viễn cảnh của CI thường bao gồm các bước:
+1. Lập trình viên đẩy code của mình lên reposity
+chung của team nhờ hệ thống quản lý phiên bản 
+(Thông thường là Git hoặc SVN). Trong lúc 
+đó, CI Server theo dõi repository đó để 
+phát hiện những thay đổi. 
+
+2. CI Server sau khi phát hiện những thay đổi, 
+nó thực hiện download về phiên bản mới nhất của
+repository và thực hiện build script. 
+
+3. CI server có thể gửi email lại cho các lập trình 
+viên thông báo về kết quả của build script. 
+
+4. CI Server quay lại theo dõi những thay đổi của repository. 
+
+Sử dụng CI thường giúp lập trình viên trả lời các câu hỏi: 
+- Các thành phần của phần mềm có hoạt động với nhau không? 
+- Độ phức tạp của code như thế nào? 
+- Các thành viên trong Team có đang theo chuẩn code không? 
+- Bao nhiêu phần của code được bao phủ với các test tự động? 
+- Các test có pass sau thay đổi cuối cùng không? 
+- Ứng dụng có đáp ứng yêu cầu về hiệu năng không? 
+
+BUILD SCRIPT
+Bước đầu tiên để thực hiện CI là các lập trình viên
+cần phải biên dịch, test, kiểm tra, hoặc có thể triển khai 
+phần mềm bằng tập các câu lệnh, không phải sử dụng 
+các tính năng có sẵn của IDE để thực hiện các việc trên.
+Lý do:
+- Do các lập trình viên thường sử dụng các IDE khác nhau, 
+các trình soạn thảo khác nhau. 
+- Trong trường hợp IDE có thể sinh build script thì chúng
+cũng thường phụ thuộc vào IDE đó và phụ thuộc vào môi trường 
+mà build script được sinh ra. 
+- Sử dụng IDE có thể dẫn đến khó khăn trong cấu hình quá trình build, 
+khó trong việc build, test tự động. 
+
+build script thường thực hiện các nhiệm vụ: 
+1. Download, cài đặt các phụ thuộc. 
+2. Biên dịch chương trình (Nếu có). 
+3. Chạy các Unit Test, Integration Test, System Test. 
+4. Chạy các chương trình phân tích code. 
+5. Chạy các test về hiệu năng, bảo mật,...
+
+VERSION CONTROL SYSTEM
+Các file nên được lưu trữ trên các VCS. 
+- Các tài liệu. 
+- Build/Test Script. 
+- Các test case. 
+- Các script cấu hình chương trình. 
+- Các script tạo, upgrade, downgrade cơ sở dữ liệu. 
+- Các script thiết lập môi trường, thư viện.
+- Source Code. 
+- Script cấu hình CI Server. Ví dụ: .travis.yml
+
+Các file mà có thể sinh ra bởi các cript và source code 
+ở trên hoặc không nên được để trên VCS. 
+Hoặc các file chứa các thông tin bí mật như secret key 
+để chạy server. 
+
+Các test nên đều là các test tự động. 
+
+
+CI SERVER
